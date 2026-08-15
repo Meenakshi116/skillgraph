@@ -1,0 +1,11 @@
+CREATE CONSTRAINT role_name_unique IF NOT EXISTS
+FOR (r:Role)
+REQUIRE r.name IS UNIQUE;
+
+CREATE CONSTRAINT skill_name_unique IF NOT EXISTS
+FOR (s:Skill)
+REQUIRE s.name IS UNIQUE;
+
+CREATE CONSTRAINT company_name_unique IF NOT EXISTS
+FOR (c:Company)
+REQUIRE c.name IS UNIQUE;

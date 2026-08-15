@@ -1,0 +1,701 @@
+/* =========================================================
+   SkillGraph Explorer - Colourful Dashboard
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #f4f7ff;
+  color: #172033;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(99, 102, 241, 0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.12), transparent 28%),
+    #f4f7ff;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 28px 42px;
+
+  background: linear-gradient(
+    135deg,
+    #312e81 0%,
+    #4f46e5 45%,
+    #2563eb 100%
+  );
+
+  color: white;
+
+  box-shadow: 0 8px 30px rgba(37, 50, 120, 0.25);
+}
+
+.heading-icon {
+  flex-shrink: 0;
+  padding: 8px;
+  width: 52px;
+  height: 52px;
+
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(8px);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.header p {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 20px auto;
+  padding: 13px 17px;
+
+  max-width: 1200px;
+
+  color: #991b1b;
+  background: #fee2e2;
+
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+}
+
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.layout {
+  display: grid;
+  grid-template-columns: 285px 1fr;
+  gap: 25px;
+
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+  align-self: start;
+
+  padding: 22px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border: 1px solid #e0e7ff;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 25px rgba(40, 50, 100, 0.08);
+
+  position: sticky;
+  top: 20px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 0 0 18px;
+
+  color: #312e81;
+
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.sidebar .section-heading svg {
+  color: #6366f1;
+}
+
+/* =========================================================
+   SKILLS
+   ========================================================= */
+
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.skill-button {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  text-align: left;
+
+  color: #334155;
+  background: #f8faff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 11px;
+
+  transition: all 0.2s ease;
+}
+
+.skill-button:hover {
+  transform: translateX(3px);
+
+  color: #3730a3;
+  background: #eef2ff;
+
+  border-color: #a5b4fc;
+
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.12);
+}
+
+.skill-button.active {
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #2563eb
+  );
+
+  border-color: transparent;
+
+  box-shadow: 0 7px 18px rgba(79, 70, 229, 0.3);
+}
+
+.skill-button small {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 11px;
+
+  color: #64748b;
+}
+
+.skill-button.active small {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.content {
+  min-width: 0;
+}
+
+.main-heading {
+  padding-bottom: 12px;
+
+  border-bottom: 2px solid #e0e7ff;
+}
+
+.main-heading svg {
+  color: #4f46e5;
+}
+
+/* =========================================================
+   SELECTED SKILL
+   ========================================================= */
+
+.selected {
+  margin: 0 0 20px;
+
+  color: #64748b;
+
+  font-size: 15px;
+}
+
+.selected strong {
+  color: #4f46e5;
+}
+
+/* =========================================================
+   MESSAGES
+   ========================================================= */
+
+.message {
+  padding: 18px;
+
+  color: #475569;
+  background: white;
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 13px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   CAREER CARDS
+   ========================================================= */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  position: relative;
+
+  padding: 22px;
+
+  background: linear-gradient(
+    145deg,
+    #ffffff,
+    #f5f3ff
+  );
+
+  border: 1px solid #ddd6fe;
+  border-radius: 17px;
+
+  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
+
+  overflow: hidden;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card::before {
+  content: "";
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 5px;
+
+  background: linear-gradient(
+    90deg,
+    #6366f1,
+    #8b5cf6,
+    #3b82f6
+  );
+}
+
+.card:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 14px 30px rgba(79, 70, 229, 0.18);
+}
+
+.card h3 {
+  margin: 0 0 12px;
+
+  color: #312e81;
+
+  font-size: 20px;
+}
+
+.card p {
+  margin: 0 0 12px;
+
+  color: #64748b;
+}
+
+/* =========================================================
+   COMPANIES
+   ========================================================= */
+
+.companies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.companies span {
+  padding: 7px 11px;
+
+  color: #166534;
+  background: #dcfce7;
+
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/* =========================================================
+   RELATED SKILLS
+   ========================================================= */
+
+.related-section,
+.skill-gap-section,
+.learning-section {
+  margin-top: 42px;
+}
+
+.gap-description {
+  margin: 0 0 18px;
+
+  color: #64748b;
+}
+
+.related-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.related-skill-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 10px 15px;
+
+  color: #065f46;
+  background: #ecfdf5;
+
+  border: 1px solid #a7f3d0;
+  border-radius: 10px;
+
+  font-weight: 650;
+
+  transition: all 0.2s ease;
+}
+
+.related-skill-button:hover {
+  transform: translateY(-2px);
+
+  color: white;
+  background: linear-gradient(
+    135deg,
+    #059669,
+    #10b981
+  );
+
+  border-color: transparent;
+
+  box-shadow: 0 7px 18px rgba(16, 185, 129, 0.22);
+}
+
+/* =========================================================
+   ROLE SELECTOR
+   ========================================================= */
+
+.role-selector {
+  margin-bottom: 20px;
+}
+
+.role-selector select {
+  width: 100%;
+  max-width: 430px;
+
+  padding: 13px 15px;
+
+  color: #1e293b;
+  background: white;
+
+  border: 2px solid #c7d2fe;
+  border-radius: 12px;
+
+  outline: none;
+
+  transition: all 0.2s ease;
+}
+
+.role-selector select:hover {
+  border-color: #818cf8;
+}
+
+.role-selector select:focus {
+  border-color: #4f46e5;
+
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+}
+
+/* =========================================================
+   SKILL GAP
+   ========================================================= */
+
+.gap-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 15px;
+}
+
+.gap-card {
+  padding: 18px;
+
+  background: linear-gradient(
+    145deg,
+    #fff7ed,
+    #ffffff
+  );
+
+  border: 1px solid #fed7aa;
+  border-left: 5px solid #f97316;
+
+  border-radius: 14px;
+
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.08);
+
+  transition: transform 0.2s ease;
+}
+
+.gap-card:hover {
+  transform: translateY(-3px);
+}
+
+.gap-card h3 {
+  margin: 0 0 10px;
+
+  color: #c2410c;
+}
+
+.gap-card p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   LEARNING PATH
+   ========================================================= */
+
+.learning-path {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  position: relative;
+}
+
+.learning-path::before {
+  content: "";
+
+  position: absolute;
+
+  left: 22px;
+  top: 22px;
+  bottom: 22px;
+
+  width: 3px;
+
+  background: linear-gradient(
+    to bottom,
+    #6366f1,
+    #8b5cf6,
+    #ef4444
+  );
+
+  border-radius: 10px;
+}
+
+.learning-step {
+  position: relative;
+
+  display: flex;
+  gap: 17px;
+
+  padding: 18px;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+
+  box-shadow: 0 6px 18px rgba(30, 41, 59, 0.07);
+
+  transition: all 0.2s ease;
+}
+
+.learning-step:hover {
+  transform: translateX(4px);
+
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.12);
+}
+
+.step-number {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 46px;
+  height: 46px;
+
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #4f46e5,
+    #7c3aed
+  );
+
+  border-radius: 50%;
+
+  font-weight: 800;
+
+  box-shadow: 0 5px 14px rgba(79, 70, 229, 0.3);
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-top {
+  margin-bottom: 7px;
+}
+
+.step-content h3 {
+  margin: 0 0 8px;
+
+  color: #1e1b4b;
+
+  font-size: 19px;
+}
+
+.step-content p {
+  margin: 0;
+
+  color: #64748b;
+
+  line-height: 1.55;
+}
+
+/* =========================================================
+   LEVEL BADGES
+   ========================================================= */
+
+.level-badge {
+  display: inline-block;
+
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.level-badge.foundation {
+  color: #1d4ed8;
+  background: #dbeafe;
+
+  border: 1px solid #bfdbfe;
+}
+
+.level-badge.core {
+  color: #7e22ce;
+  background: #f3e8ff;
+
+  border: 1px solid #e9d5ff;
+}
+
+.level-badge.advanced {
+  color: #b91c1c;
+  background: #fee2e2;
+
+  border: 1px solid #fecaca;
+}
+
+/* =========================================================
+   STRONG TEXT
+   ========================================================= */
+
+strong {
+  font-weight: 750;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+
+  .skill-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 22px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .layout {
+    padding: 18px;
+  }
+
+  .skill-list {
+    grid-template-columns: 1fr;
+  }
+
+  .cards,
+  .gap-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .learning-step {
+    padding: 14px;
+  }
+}
