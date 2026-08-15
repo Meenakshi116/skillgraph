@@ -10,7 +10,7 @@ import {
   BookOpen,
 } from "lucide-react";
 
-const API_BASE = "http://127.0.0.1:8000";
+ const API_BASE = "https://skillgraph-backend-fonz.onrender.com";
 
 function App() {
   const [skills, setSkills] = useState([]);
